@@ -135,18 +135,51 @@
 						var item = document.createElement('li');
 						var node = document.createElement('div');
 						if (array[i].type == "URLFeed") {
-							item.appendChild(document.createTextNode(array[i].url));
+							//item.appendChild(document.createTextNode(array[i].url));
+							var feed = document.createElement("div");
+             feed.style.width = "490px";
+             feed.style.height = "40px";
+             feed.style.background = "blue";
+             feed.style.display="inline-block";
+             feed.style.padding="5px";
+            feed.innerHTML = array[i].url;
+            item.appendChild(feed);
+
 						} else {
-							item.appendChild(document.createTextNode(array[i].text));
+							var feed = document.createElement("div");
+             feed.style.width = "490px";
+             feed.style.height = "40px";
+             feed.style.background = "orange";
+             feed.style.display="inline-block";
+             feed.style.padding="5px";
+            feed.innerHTML = array[i].text;
+            item.appendChild(feed);
+            //item.appendChild(feed);appendChild(document.createTextNode(array[i].text));
 						}
-						item.appendChild(document.createTextNode(array[i].id));
+						var feed = document.createElement("div");
+             feed.style.width = "200px";
+             feed.style.height = "40px";
+             feed.style.background = "orange";
+             feed.style.display="inline-block";
+             feed.style.padding="5px";
+            feed.innerHTML = array[i].id;
+            item.appendChild(feed);
+						//item.appendChild(document.createTextNode(array[i].id));
+						
 						var newFeed = document.createElement('a');
+						 newFeed.style.width = "20px";
+             newFeed.style.height = "40px";
+             newFeed.style.background = "orange";
+             newFeed.style.display="inline-block";
+             newFeed.style.padding="5px";
+            newFeed.innerHTML = " X ";
 						newFeed.setAttribute('href', '#');
 						newFeed.setAttribute('onClick', 'deleteFeed(' + i + ')');
-						newFeed.textContent = " X ";
+						//newFeed.textContent = " X ";
+						item.appendChild(newFeed);
 						list.appendChild(item);
 
-						list.appendChild(newFeed);
+						//list.appendChild(newFeed);
 						node.appendChild(list);
 
 					}
