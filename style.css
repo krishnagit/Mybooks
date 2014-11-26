@@ -1,0 +1,82 @@
+html, body
+{
+	height:100%;
+	width: 100%;
+}
+#container
+{
+	height: 100%;
+	width: 100%;
+}
+
+#header
+{
+	background: #B8E6E6;
+	width: 100%;
+	height:100px;
+}
+
+#header .title
+{
+	display :inline-block;
+	width: 10%;
+	height:100%;
+}
+#header  .log
+{
+	display :inline-block;
+	float :right;	
+	height:100%;
+	padding-top: 3%;
+	margin-right: 20px;
+	vertical-align: middle;
+}
+
+.content
+{
+	width:100%;
+	height:calc(100% - 130px);
+}
+
+#container h1
+{
+	font-size: 160%;	
+}
+
+#footer {
+    background-color:#B8E6E6;
+    clear:both;
+    text-align:center; 
+    width: 100%;
+    height:30px;
+    }
+
+.navigation
+{
+	line-height:30px;
+    background-color:#eeeeee;
+    height:100%;
+    width:100px;
+    float:left;    
+    display:inline-block;
+}
+
+.profilelogo
+{
+	display:inline-block;
+	padding-left: 6%;
+}
+
+.profiledetail{
+	display:inline-block;
+	padding-top: 3%;
+padding-left: 30%;
+}
+.feed 
+{
+	display:inline-block;
+	 height:100%;
+	 padding-top: 1%;
+padding-left: 2%;
+}
+

@@ -1,0 +1,80 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script language="javascript" type="text/javascript">
+			function limitText(limitField, limitNum) {
+				if (limitField.value.length > limitNum) {
+					limitField.value = limitField.value.substring(0, limitNum);
+				}
+			}
+
+			var count = 5;
+			function validate() {
+
+				var un = document.mybook.username.value;
+				var pw = document.mybook.password.value;
+				var valid = false;
+
+				var unArray = ["sunil", "sivaji", "jkrishna", "srini"];
+				// as many as you like - no comma after final entry
+				var pwArray = ["Pass1", "Pass2", "Pass3", "Pass4"];
+				// the corresponding passwords;
+
+				for (var i = 0; i < unArray.length; i++) {
+					if ((un == unArray[i]) && (pw == pwArray[i])) {
+						valid = true;
+						break;
+					}
+				}
+
+				if (valid) {
+					alert("Login was successful");
+					window.location = "Feed.html";
+					return false;
+				}
+
+				var t = " tries";
+				if (count == 1) {
+					t = " try"
+				}
+
+				if (count >= 1) {
+					alert("Invalid username and/or password.  You have " + count + t + " left.");
+					document.mybook.username.value = "";
+					document.mybook.password.value = "";
+				}
+			}
+
+		</script>
+		<TITLE>Login Mybook</TITLE>
+	</head>
+	<body>
+
+		<div id="container">
+			<div id="header">
+
+				<div class ="title">
+					<h1>MY BOOK</h1>
+				</div>
+				<div class ="log">
+					<form name ="mybook">
+						<input name="username"  onKeyDown="limitText(this,8);" onKeyUp="limitText(this,8);" size=15 type="text"  placeholder="Username"/>
+
+						<input name="password" onKeyDown="limitText(this,6);"  onKeyUp="limitText(this,6);"   pattern="*" size=15 type="password"  placeholder="Password" />
+
+						<input type="button" value="Sign In" name="Submit" onclick= "validate()">
+					</form>
+				</div>
+			</div>
+
+			<div class="content">
+
+			</div>
+			<div id="footer">
+				Copyright © Mybook, 2014
+			</div>
+		</div>
+
+	</body>
+</html>
