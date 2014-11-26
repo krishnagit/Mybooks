@@ -4,202 +4,229 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<link rel="stylesheet" type="text/css" href="style.css">
-<script language="javascript" type="text/javascript">
+		<script language="javascript" type="text/javascript">
+			var FeedList = [];
 
-var FeedList = [];
+			function datetime() {
+				try {
+					now = new Date();
+					year = "" + now.getFullYear();
+					month = "" + (now.getMonth() + 1);
+					if (month.length == 1) {
+						month = "0" + month;
+					}
+					day = "" + now.getDate();
+					if (day.length == 1) {
+						day = "0" + day;
+					}
+					hour = "" + now.getHours();
+					if (hour.length == 1) {
+						hour = "0" + hour;
+					}
+					minute = "" + now.getMinutes();
+					if (minute.length == 1) {
+						minute = "0" + minute;
+					}
+					return month + "/" + day + "/" + year + "   " + hour + ":" + minute;
+				} catch(ex) {
+					console.error("inner", ex.message);
+				}
+			}
 
-function datetime() {
-    now = new Date();
-    year = "" + now.getFullYear();
-    month = "" + (now.getMonth() + 1);
-    if (month.length == 1) {
-        month = "0" + month;
-    }
-    day = "" + now.getDate();
-    if (day.length == 1) {
-        day = "0" + day;
-    }
-    hour = "" + now.getHours();
-    if (hour.length == 1) {
-        hour = "0" + hour;
-    }
-    minute = "" + now.getMinutes();
-    if (minute.length == 1) {
-        minute = "0" + minute;
-    }
-    return month + "/" + day + "/" + year + "   " + hour + ":" + minute;
-}
+			/* --New Code*/
+
+			function Feed(id, _type) {
+				this._id = id;
+				this._type = _type;
+			}
 
 
-/* --New Code*/
+			Feed.prototype.getId = function() {
+				return this.id;
+			}
 
-function Feed(id, _type) {
-    this._id = id;
-    this._type = _type;
-}
+			Feed.prototype.getType = function() {
+				return this._type;
+			}
 
-Feed.prototype.getId = function() {
-    return this.id;
-}
+			URLFeed.prototype = new Feed();
+			URLFeed.constructor = URLFeed;
 
-Feed.prototype.getType = function() {
-    return this._type;
-}
+			function URLFeed(url) {
+				this.url = url;
+			}
 
-URLFeed.prototype = new Feed();
-URLFeed.constructor = URLFeed;
 
-function URLFeed(url) {
-    this.url = url;
-}
+			URLFeed.prototype.getFeed = function() {
+				return url;
+			};
 
-URLFeed.prototype.getFeed = function() {
-    return url;
-};
+			TextFeed.prototype = new Feed();
+			TextFeed.constructor = TextFeed;
 
-TextFeed.prototype = new Feed();
-TextFeed.constructor = TextFeed;
+			function TextFeed(text) {
+				this.text = text;
+			}
 
-function TextFeed(text) {
-    this.text = text;
-}
 
-TextFeed.prototype.getFeed = function() {
-    return text;
-};
+			TextFeed.prototype.getFeed = function() {
+				return text;
+			};
 
-function isUrlFeed(text) {
-    var isUrl = false;
-    if (text.split("http://").length > 1) {
-        isUrl = true;
-    }
-}
+			function isUrlFeed(text) {
+				var isUrl = false;
+				if (text.split("http://").length > 1) {
+					isUrl = true;
+				}
+			}
 
-function createFeed() {
-    var addFeed = document.getElementById('addFeed').value;
-    var type = isUrlFeed(addFeed);
-    var id = datetime();
-    if (type) {
-        var urlFeed = new URLFeed();
-        urlFeed.type = "URLFeed";
-        urlFeed.id = id;
-        urlFeed.url = addFeed;
-        FeedList.push(urlFeed)
-    } else {
-        var textFeed = new TextFeed();
-        textFeed.type = "TextFeed";
-        textFeed.id = id;
-        textFeed.text = addFeed;
-        FeedList.push(textFeed);
-    }
-    return FeedList;
-   
-    /*URLFeed = new URLFeed();
-    URLFeed.getType ="";
-    URLFeed.getFeed =addFeed;
-    FeedList.push(URLFeed.getFeed);
-   
-    var newFeed ="";
-    for (i = 0; i < FeedList.length; i++)	{
-    	 URLFeed.getId = i;    	 
-    	 
-      newFeed += FeedList[i] + "<a href='#' onClick='deleteFeed(" + i + ");'>    X     </a> " + " <br>" +"                " + datetime()  + "<br>";
-    };   
+			function createFeed() {
+				try {
+					var addFeed = document.getElementById('addFeed').value;
+					var type = isUrlFeed(addFeed);
+					var id = datetime();
+					if (type) {
+						var urlFeed = new URLFeed();
+						urlFeed.type = "URLFeed";
+						urlFeed.id = id;
+						urlFeed.url = addFeed;
+						FeedList.push(urlFeed)
+					} else {
+						var textFeed = new TextFeed();
+						textFeed.type = "TextFeed";
+						textFeed.id = id;
+						textFeed.text = addFeed;
+						FeedList.push(textFeed);
+					}
+					return FeedList;
 
-    document.getElementById('Feeds').innerHTML = newFeed ; */
+				} catch(ex) {
+					console.error("inner", ex.message);
+				}
+				/*URLFeed = new URLFeed();
+				 URLFeed.getType ="";
+				 URLFeed.getFeed =addFeed;
+				 FeedList.push(URLFeed.getFeed);
 
-}
+				 var newFeed ="";
+				 for (i = 0; i < FeedList.length; i++)	{
+				 URLFeed.getId = i;
 
-function signOut() {
-    window.location = "Index.html";
-}
+				 newFeed += FeedList[i] + "<a href='#' onClick='deleteFeed(" + i + ");'>    X     </a> " + " <br>" +"                " + datetime()  + "<br>";
+				 };
 
-function showProfile() {
-    window.location = "Profile.html";
-}
+				 document.getElementById('Feeds').innerHTML = newFeed ; */
 
-function refreshFeed(array)
-{
-    var list = document.createElement('ul');
-  
-    for (var i = 0; i < array.length; i++) {
-        var item = document.createElement('li');
-        var node = document.createElement('div');
-        if (array[i].type == "URLFeed") {
-            item.appendChild(document.createTextNode(array[i].url));
-        } else {
-            item.appendChild(document.createTextNode(array[i].text));
-        }
-        item.appendChild(document.createTextNode(array[i].id));
-       var newFeed =document.createElement('a');
-       newFeed.setAttribute('href', '#');
-       newFeed.setAttribute('onClick', 'deleteFeed('+i+')');
-       newFeed.textContent = " X ";      
-       list.appendChild(item);
-        
-       list.appendChild(newFeed);
-       node.appendChild(list);
-        
-    }
-    var feedListDiv = document.getElementById('feedList');
-    while (feedListDiv.hasChildNodes()) {
-        feedListDiv.removeChild(feedListDiv.lastChild);
-    }
-   // list +=newFeed;
-    //alert(list);
-    document.getElementById('feedList').appendChild(list);
-     
-    
-}
+			}
 
-function showFeed()
-{
-    var array = createFeed();
-   
-    refreshFeed(array);
-}
-	
-function deleteFeed(id) 
-{
- FeedList.splice(id, 1);  
- refreshFeed(FeedList);
-    /*
-       FeedList.splice(i, 1);
-       var newFeed = "";
-       // re-display the records from FeedList the same way we did it in addToFeed()
-       for (var i = 0; i < FeedList.length; i++) {
-           newFeed += FeedList[i] + "<a href='#' onClick='deleteFeed(" + i + ");'>    X     </a> " + " <br>" +"                " + datetime()  + "<br>";
-       };
-       document.getElementById('Feeds').innerHTML = newFeed; */
-}
+			function signOut() {
+				window.location = "index.html";
+			}
 
-/*  ----*/
+			function showProfile() {
+				window.location = "Profile.html";
+			}
 
-</script>
-		<TITLE>Feed</TITLE>		
+			function refreshFeed(array) {
+				try {
+					var list = document.createElement('ul');
+
+					for (var i = 0; i < array.length; i++) {
+						var item = document.createElement('li');
+						var node = document.createElement('div');
+						if (array[i].type == "URLFeed") {
+							item.appendChild(document.createTextNode(array[i].url));
+						} else {
+							item.appendChild(document.createTextNode(array[i].text));
+						}
+						item.appendChild(document.createTextNode(array[i].id));
+						var newFeed = document.createElement('a');
+						newFeed.setAttribute('href', '#');
+						newFeed.setAttribute('onClick', 'deleteFeed(' + i + ')');
+						newFeed.textContent = " X ";
+						list.appendChild(item);
+
+						list.appendChild(newFeed);
+						node.appendChild(list);
+
+					}
+					var feedListDiv = document.getElementById('feedList');
+					while (feedListDiv.hasChildNodes()) {
+						feedListDiv.removeChild(feedListDiv.lastChild);
+					}
+					// list +=newFeed;
+					//alert(list);
+					document.getElementById('feedList').appendChild(list);
+
+				} catch(ex) {
+					console.error("inner", ex.message);
+				}
+			}
+
+			function showFeed() {
+				try {
+					var array = createFeed();
+					refreshFeed(array);
+				} catch(ex) {
+					console.error("inner", ex.message);
+				}
+			}
+
+			function deleteFeed(id) {
+				try {
+					FeedList.splice(id, 1);
+					refreshFeed(FeedList);
+				} catch(ex) {
+					console.error("inner", ex.message);
+				}
+				/*
+				 FeedList.splice(i, 1);
+				 var newFeed = "";
+				 // re-display the records from FeedList the same way we did it in addToFeed()
+				 for (var i = 0; i < FeedList.length; i++) {
+				 newFeed += FeedList[i] + "<a href='#' onClick='deleteFeed(" + i + ");'>    X     </a> " + " <br>" +"                " + datetime()  + "<br>";
+				 };
+				 document.getElementById('Feeds').innerHTML = newFeed; */
+			}
+
+			/*  ----*/
+
+		</script>
+		<TITLE>Feed</TITLE>
 	</head>
 
 	<body>
 		<div id="container">
-<div id="header">
+			<div id="header">
 
-<div class ="title"><h1>My Book</h1></div><div class ="log"><a href="#" onclick="signOut();">Sign out</a></div>
-</div>
-<div class="content">
-<div class="navigation">	
-<button>Feed</button><br>
-<button onclick="showProfile();">Profile</button>
-</div>
-<div class ="feed">
-<input type="text" id="addFeed" name="feed" placeholder="Text feed or URL feed" size="85">
-<button onclick="showFeed();">Post</button>
-<div id= "feedList">
-</div>
-</div>
-</div>
-<div id="footer">
-		Copyright © Mybook, 2014
-</div>
-</div>
-</body>
+				<div class ="title">
+					<h1>My Book</h1>
+				</div>
+				<div class ="log">
+					<a href="#" onclick="signOut();">Sign out</a>
+				</div>
+			</div>
+			<div class="content">
+				<div class="navigation">
+					<button>
+						Feed
+					</button>
+					<br>
+					<button onclick="showProfile();">
+						Profile
+					</button>
+				</div>
+				<div class ="feed">
+					<input type="text" id="addFeed" name="feed" placeholder="Text feed or URL feed" size="85">
+					<button onclick="showFeed();">
+						Post
+					</button>
+					<div id= "feedList"></div>
+				</div>
+			</div>
+			<div id="footer">
+				Copyright © Mybook, 2014
+			</div>
+		</div>
+	</body>
 </html>

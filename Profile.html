@@ -1,135 +1,192 @@
 <!-- saved from url=(0022)http://internet.e-mail -->
 <html>
-<head>
-<link rel="stylesheet" type="text/css" href="style.css">
-<script  language="javascript"  type="text/javascript">
- function handleChange(input) {
-    if (input.value < 0) input.value = 0;
-    if (input.value > 100) input.value = 100;
-  }  
-  
- function minmax(value, min, max) 
-{
-    if(parseInt(value) < 0 || isNaN(value)) 
-        return 0; 
-    else if(parseInt(value) > 100) 
-        return 100; 
-    else return value;
-}
+	<head>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script  language="javascript"  type="text/javascript">
+			function handleChange(input) {
+				try {
+					if (input.value < 0)
+						input.value = 0;
+					if (input.value > 100)
+						input.value = 100;
+				} catch(ex) {
+					console.error("inner", ex.message);
+				}
+			}
 
-var profiles=[];
-function Profile(name,age,phone,email,address){
-this.name = name;
-this.age=age;
-this.phone=phone;
-this.email=email;
-this.address=address;
-}
+			function minmax(value, min, max) {
+				try {
+					if (parseInt(value) < 0 || isNaN(value))
+						return 0;
+					else if (parseInt(value) > 100)
+						return 100;
+					else
+						return value;
+				} catch(ex) {
+					console.error("inner", ex.message);
+				}
+			}
 
-Profile.prototype.setId=function(){
-this.id = +new Date();
-}
-Profile.prototype.setImage=function(imgPath){
-this.imgPath = imgPath;
-}
-
-function saveProfile(){
-var name=document.Profilefrm.name.value;
-var age=document.Profilefrm.age.value;
-var phone=document.Profilefrm.phone.value;
-var email=document.Profilefrm.email.value;
-var address=document.Profilefrm.address.value;
-var profilePic = document.Profilefrm.profilePath.value;
-var profile = new Profile(name,age,phone,email,address);
-profile.setId();
-profile.setImage(profilePic);
-profiles.push(profile);
-alert("Profile saved with name,age,email,phone::::"+profile.name+","+profile.age+","+profile.email+","+profile.phone);
-}
+			var profiles = [];
+			function Profile(name, age, phone, email, address) {
+				try {
+					this.name = name;
+					this.age = age;
+					this.phone = phone;
+					this.email = email;
+					this.address = address;
+				} catch(ex) {
+					console.error("inner", ex.message);
+				}
+			}
 
 
-function onFileSelected(event) {
-  var selectedFile = event.target.files[0];
-  var reader = new FileReader();
+			Profile.prototype.setId = function() {
+				this.id = +new Date();
+			}
+			Profile.prototype.setImage = function(imgPath) {
+				this.imgPath = imgPath;
+			}
+			function saveProfile() {
+				try {
+					var name = document.Profilefrm.name.value;
+					var age = document.Profilefrm.age.value;
+					var phone = document.Profilefrm.phone.value;
+					var email = document.Profilefrm.email.value;
+					var address = document.Profilefrm.address.value;
+					var profilePic = document.Profilefrm.profilePath.value;
+					var profile = new Profile(name, age, phone, email, address);
+					profile.setId();
+					profile.setImage(profilePic);
+					profiles.push(profile);
+					alert("Profile saved with name,age,email,phone::::" + profile.name + "," + profile.age + "," + profile.email + "," + profile.phone);
+				} catch(ex) {
+					console.error("inner", ex.message);
+				}
+			}
 
-  var imgtag = document.getElementById("profilePic");
-  imgtag.title = selectedFile.name;
+			function onFileSelected(event) {
+				try {
+					var selectedFile = event.target.files[0];
+					var reader = new FileReader();
 
-  reader.onload = function(event) {
-    imgtag.src = event.target.result;
-  };
+					var imgtag = document.getElementById("profilePic");
+					imgtag.title = selectedFile.name;
 
-  reader.readAsDataURL(selectedFile);
-}
+					reader.onload = function(event) {
+						imgtag.src = event.target.result;
+					};
 
-function loadFeed(){
-window.location = "Feed.html"; 
-}
+					reader.readAsDataURL(selectedFile);
+				} catch(ex) {
+					console.error("inner", ex.message);
+				}
+			}
 
-function signOut(){
-window.location = "Index.html";
-}
+			function loadFeed() {
+				window.location = "Feed.html";
+			}
 
+			function signOut() {
+				window.location = "index.html";
+			}
 
-function validateInput(element){
-var value = element.value;
-var elementName =element.name; 
-if(elementName == "name"){
-//validateName(value);
-}
-else if(elementName == "age"){
-//validateAge(value);
-}
-else if(elementName == "email"){
-//validateEmail(value);
-}
-else if(elementName == "phone"){
-//validatePhone(value);
-}
-enableSave();	  
-}
+			function validateInput(element) {
+				try {
+					var value = element.value;
+					var elementName = element.name;
+					if (elementName == "name") {
+						//validateName(value);
+					} else if (elementName == "age") {
+						//validateAge(value);
+					} else if (elementName == "email") {
+						//validateEmail(value);
+					} else if (elementName == "phone") {
+						//validatePhone(value);
+					}
+					enableSave();
+				} catch(ex) {
+					console.error("inner", ex.message);
+				}
+			}
 
-function enableSave(){
-var name=document.Profilefrm.name.value;
-var age=document.Profilefrm.age.value;
-var phone=document.Profilefrm.phone.value;
-var email=document.Profilefrm.email.value;
-if(name.length >0 && age.length>0 && phone.length>0 && email.length>0){
-document.getElementById("save").disabled = false;
-}
-}
-</script>
-</head>
-<body>
-<form name ="Profilefrm">
-		<div id="container">
-<div id="header">
-<div class ="title"><h1>My Book</h1></div><div class ="log"><a href="#" onclick="signOut();">Sign out</a></div>
-</div>
-<div class="navigation">
-<table>
-<tr>
-<td><button onclick="loadFeed();">Feed</button></td></tr>
-<tr><td><button onclick="loadProfile();">Profile</button></td></tr>
-</table>
-</div>
-<div class = "profile">
-<div class="profiledetail">
-<input id="name" type="text" name="name" maxlength="50" placeholder="Name" size="30" required  onchange="validateInput(this);"/>*<br><br>
-<input id="age" type="text" name="age" onkeyup="this.value = minmax(this.value, 0, 100)" maxlength="3"  onchange="validateInput(this);" placeholder="Age" size="30" required/>*<br><br>
-<input id="phone" type="text" name="phone" placeholder="Phone"  onchange="validateInput(this);" onkeypress='return event.charCode >= 48 && event.charCode <= 57' size="30" required/>*<br><br>
-<input id="email" type="text" name="email" placeholder="Email"  onchange="validateInput(this);" size="30" required/>*<br><br>
-<textarea placeholder="Address" rows="3" cols="32"> </textarea><br><br>
-<input id="profilePath" type="file" name="datafile" size="40" placeholder="Profile Image" onchange="onFileSelected(event)"><br><br>
-<button id="save" onclick="saveProfile();" disabled="true">save</button>
-</div>
-<div class="profilelogo">
-<img id="profilePic" src="image1.jpg" alt="Tom & Jerry" height="200" width="200"></div>
-</div>
-<div id="footer">
-Copyright © Mybook, 2014
-</div>
-</div>
-</form>
-</body>
+			function enableSave() {
+				try {
+					var name = document.Profilefrm.name.value;
+					var age = document.Profilefrm.age.value;
+					var phone = document.Profilefrm.phone.value;
+					var email = document.Profilefrm.email.value;
+					if (name.length > 0 && age.length > 0 && phone.length > 0 && email.length > 0) {
+						document.getElementById("save").disabled = false;
+					}
+				} catch(ex) {
+					console.error("inner", ex.message);
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<form name ="Profilefrm">
+			<div id="container">
+				<div id="header">
+					<div class ="title">
+						<h1>My Book</h1>
+					</div>
+					<div class ="log">
+						<a href="#" onclick="signOut();">Sign out</a>
+					</div>
+				</div>
+				<div class="navigation">
+					<table>
+						<tr>
+							<td>
+							<button onclick="loadFeed();">
+								Feed
+							</button></td>
+						</tr>
+						<tr>
+							<td>
+							<button onclick="loadProfile();">
+								Profile
+							</button></td>
+						</tr>
+					</table>
+				</div>
+				<div class = "profile">
+					<div class="profiledetail">
+						<input id="name" type="text" name="name" maxlength="50" placeholder="Name" size="30" required  onchange="validateInput(this);"/>
+						*
+						<br>
+						<br>
+						<input id="age" type="text" name="age" onkeyup="this.value = minmax(this.value, 0, 100)" maxlength="3"  onchange="validateInput(this);" placeholder="Age" size="30" required/>
+						*
+						<br>
+						<br>
+						<input id="phone" type="text" name="phone" placeholder="Phone"  onchange="validateInput(this);" onkeypress='return event.charCode >= 48 && event.charCode <= 57' size="30" required/>
+						*
+						<br>
+						<br>
+						<input id="email" type="text" name="email" placeholder="Email"  onchange="validateInput(this);" size="30" required/>
+						*
+						<br>
+						<br>
+						<textarea placeholder="Address" rows="3" cols="32"> </textarea>
+<br>						<br>
+						<input id="profilePath" type="file" name="datafile" size="40" placeholder="Profile Image" onchange="onFileSelected(event)">
+						<br>
+						<br>
+						<button id="save" onclick="saveProfile();" disabled="true">
+							save
+						</button>
+					</div>
+					<div class="profilelogo">
+						<img id="profilePic" src="image1.jpg" alt="Tom & Jerry" height="200" width="200">
+					</div>
+				</div>
+				<div id="footer">
+					Copyright © Mybook, 2014
+				</div>
+			</div>
+		</form>
+	</body>
 </html>
